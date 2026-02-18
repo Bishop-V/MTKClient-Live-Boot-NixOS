@@ -1,5 +1,7 @@
 # MTKClient-Live-Boot-NixOS-
-This project is to create a reproducible and easily configureable Live Boot enviroment to use MTKClient.
+This project is to create a reproducible and easily configureable Live Boot enviroment to use MTKClient. 
+
+The live environment is built without sound and with xfce. The password for the provided user "mtkclient" is 1234.
 
 The code shared here is to build an ISO using the NixOS live boot installer as the base. 
 
