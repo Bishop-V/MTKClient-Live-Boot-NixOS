@@ -2,31 +2,40 @@
 
 {
 
-  nixpkgs.hostPlatform = "x86_64-linux";
-  
   networking.hostName = "nixos-mtk"; 
 
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Gnome
+  i18n.defaultLocale = "en_US.UTF-8";
 
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-
-
-  services.gnome = {
-    core-apps.enable = false;
-    core-developer-tools.enable = false;
-    games.enable = false;
-  };
-  environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
+    
   
-  
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "mtkclient";
+  services = {
+    xserver = {
+      enable = true;
+      desktopManager = {
+        xterm.enable = false;
+        xfce.enable = true;
+      };
+    };
+    displayManager.autoLogin = {
+      enable = true;
+      user = "mtkclient";
+    };
   };
+  environment.xfce.excludePackages = with pkgs.xfce; [
+    #mousepad
+    parole
+    #ristretto
+    #xfce4-appfinder
+    #xfce4-notifyd
+    #xfce4-screenshooter
+   # xfce4-session
+   # xfce4-settings
+   # xfce4-taskmanager
+   # xfce4-terminal 
+  ];
 
   
   boot.loader = {
@@ -46,6 +55,7 @@
     variant = "";
   };
 
+
   users.users."mtkclient" = {
     isNormalUser = true;
     description = "mtkclient";
@@ -60,10 +70,6 @@
     (with pkgs; [
       neovim 
       librewolf
-      gnome-terminal
-      gnome-text-editor
-      gnomeExtensions.dash-to-dock
-
     ])
 
     ++
