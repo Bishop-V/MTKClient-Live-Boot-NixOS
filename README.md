@@ -11,6 +11,18 @@ nix.settings.extra-platforms = [ "aarch64-linux" ];
 boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 ```
 
+Within the configuration consider changing the iso compression for a faster build time.
+
+```
+image.modules.iso = {
+    isoImage.squashfsCompression = "zstd -Xcompression-level 6";
+    # faster
+    #isoImage.squashfsCompression = "zstd -Xcompression-level 3";
+    # fastest
+    #isoImage.squashfsCompression = "lz4";
+  };
+```
+
 To build for x86_64:
 ```
 sudo nixos-rebuild build-image --image-variant iso --flake .#mtkclient_x86_64
